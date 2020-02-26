@@ -21,16 +21,24 @@ pipeline {
         stage('Create Deployment') {
             steps {
                 echo 'Create Deployment ....'
+//                 sh '''
+//                 kubectl create deployment kube-demo --image=kube:demo
+//                 '''
+
                 sh '''
-                kubectl create deployment kube-demo --image=kube:demo
+                kubectl apply -f ./deployment.yaml
                 '''
+
             }
         }
         stage('Create Service') {
             steps {
                 echo 'Create Service ....'
+//                 sh '''
+//                 kubectl expose deployment kube-demo --type=LoadBalancer --port=8090
+//                 '''
                 sh '''
-                kubectl expose deployment kube-demo --type=LoadBalancer --port=8090
+                kubectl create -f service.yaml
                 '''
             }
         }
